@@ -48,6 +48,7 @@ curl svc-ip:80
 
 #### Via Service Hostname
 ```bash
+kubectl run curl --rm -it --image=curlimages/curl:8.10.1 --restart=Never -- sh
 curl nginx-svc.default.svc
 ```
 
