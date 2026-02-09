@@ -56,7 +56,6 @@ This workshop includes a unified setup script that can install various DevOps to
 |------|---------|-------------|
 | **Docker** | `./setup.sh docker` | Container runtime and management |
 | **Ansible** | `./setup.sh ansible` | Configuration management and automation |
-| **GitHub Actions** | `./setup.sh github` | CI/CD workflows and GitHub CLI |
 | **K0s** | `./setup.sh k0s` | Lightweight Kubernetes distribution |
 | **CloudSmith** | `./setup.sh cloudsmith` | Package repository management |
 
@@ -88,9 +87,6 @@ chmod +x setup.sh
 # Install Ansible
 ./setup.sh ansible
 
-# Install GitHub tools
-./setup.sh github
-
 # Install K0s Kubernetes
 ./setup.sh k0s
 
@@ -119,7 +115,6 @@ Each setup script will typically:
 - [Docker Documentation](https://docs.docker.com/)
 - [Ansible Documentation](https://docs.ansible.com/)
 - [Kubernetes Documentation](https://kubernetes.io/docs/)
-- [GitHub CLI Documentation](https://cli.github.com/manual/)
 
 ## Next Steps
 

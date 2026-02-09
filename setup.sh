@@ -13,7 +13,6 @@ show_usage() {
     echo "Available tools:"
     echo "  docker       - Install Docker Engine"
     echo "  ansible      - Install Ansible automation tool"
-    echo "  github       - Install GitHub CLI and actions tools"
     echo "  k0s          - Install K0s Kubernetes distribution"
     echo "  cloudsmith   - Install CloudSmith package tools"
     echo ""
@@ -53,16 +52,6 @@ case $TOOL in
             ./scripts/setup-ansible.sh
         else
             echo "Error: scripts/setup-ansible.sh not found."
-            exit 1
-        fi
-        ;;
-    github)
-        echo "Setting up GitHub tools..."
-        if [ -f "./scripts/setup-github-actions.sh" ]; then
-            chmod +x ./scripts/setup-github-actions.sh
-            ./scripts/setup-github-actions.sh
-        else
-            echo "Error: scripts/setup-github-actions.sh not found."
             exit 1
         fi
         ;;
