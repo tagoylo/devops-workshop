@@ -1,0 +1,33 @@
+# Linting workflow - checks code quality
+# WORKFLOW SYNTAX GUIDE:
+# - YAML format: Uses spaces (not tabs) for indentation
+# - Comments: Lines starting with # are ignored
+# - Key-value pairs: key: value format for configuration
+
+name: Lint  # Workflow name: Displayed in GitHub Actions UI
+
+# TRIGGERS: When this workflow runs. Syntax: on: <event>: <configuration>
+on:
+  push:  # Trigger on push events to main branch
+    branches: [ main ]  # Array syntax using [ main ] - runs when code is pushed to main
+  pull_request:  # Also trigger on pull requests to main branch
+    branches: [ main ]  # This is a separate trigger - workflow runs on both push AND pull_request
+
+# JOBS: Collection of tasks to execute in this workflow. Syntax: jobs: <job_id>: <job_configuration>
+jobs:
+  lint:  # Job ID: "lint" - internal identifier for this job (can be any name)
+    runs-on: ubuntu-latest  # Which Operating System/Runner: ubuntu-latest = Linux environment with latest Ubuntu version
+    steps:  # Sequential actions executed in order. Syntax: - (list of step objects); Each step is a single action in the job
+      - name: Checkout code  # Syntax: - name: <display_name> - appears in the GitHub UI
+        uses: actions/checkout@v4  # uses: Run a published action. Syntax: <owner>/<repo>@<version>
+
+      - name: Set up Python  # Configure Python environment for this job
+        uses: actions/setup-python@v4  # Official GitHub action to install Python
+        with:  # with: Pass input parameters to the action
+          python-version: '3.11'  # Specify Python 3.11 to be installed
+
+      - name: Install flake8  # Install linting tool
+        run: pip install flake8  # run: Execute a shell command in bash. Install Python package using pip package manager
+
+      - name: Run flake8  # Execute the linting checks
+        run: flake8 app.py --count --select=E9,F63,F7,F82 --show-source --statistics  # Run flake8 on app.py with specific error checks and verbose output
