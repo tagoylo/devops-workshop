@@ -1,21 +1,32 @@
 # Simple "Hello World" workflow - most basic CI example
+# WORKFLOW SYNTAX GUIDE:
+# - YAML format: Uses spaces (not tabs) for indentation
+# - Comments: Lines starting with # are ignored
+# - Key-value pairs: key: value format for configuration
+
+# Workflow name: Displayed in GitHub Actions UI
 name: Hello World CI
 
+# TRIGGERS: When this workflow runs
+# Syntax: on: <event>: <configuration>
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  push:  # Trigger on push events to main branch
+    branches: [ main ]  # Array syntax using [ main ] - runs when code is pushed to main
+  pull_request:  # Also trigger on pull requests to main branch
+    branches: [ main ]  # This is a separate trigger - workflow runs on both push AND pull_request
 
+# JOBS: Collection of tasks to execute in this workflow
+# Syntax: jobs: <job_id>: <job_configuration>
 jobs:
-  hello:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Say Hello
-        run: echo "Hello from GitHub Actions!"
+  hello:  # Job ID: "hello" - internal identifier for this job (can be any name)
+    runs-on: ubuntu-latest  # Which Operating System/Runner: ubuntu-latest = Linux environment with latest Ubuntu version
+    
+    steps:  # Sequential actions executed in order. Syntax: - (list of step objects); Each step is a single action in the job
+      - name: Say Hello  # Syntax: - name: <display_name> - appears in the GitHub UI
+        run: echo "Hello from GitHub Actions!"  # Execute a shell command in bash (default shell on Linux)
 
-      - name: Print Environment
-        run: |
-          echo "Branch: ${{ github.ref }}"
-          echo "Event: ${{ github.event_name }}"
-          echo "Repository: ${{ github.repository }}"
+      - name: Print Environment  # Display GitHub context information; Syntax: ${{ context.field }} accesses runtime variables
+        run: |  # run: | allows multi-line shell commands (each line below is a separate echo command)
+          echo "Branch: ${{ github.ref }}"  # Full branch reference (e.g., refs/heads/main)
+          echo "Event: ${{ github.event_name }}"  # Type of event that triggered the workflow (push, pull_request, etc.)
+          echo "Repository: ${{ github.repository }}"  # Repository in owner/repo format
