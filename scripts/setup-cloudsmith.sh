@@ -7,9 +7,15 @@ sudo apt-get update
 sudo apt-get install -y curl jq
 
 # Install Cloudsmith CLI
-python3 -m venv .cloudsmith-env
-source .cloudsmith-env/bin/activate
-pip install --upgrade cloudsmith-cli
+curl -s https://api.github.com/repos/cloudsmith-io/cloudsmith-cli/releases/latest \
+    | sed -n 's/.*"browser_download_url": "\(.*cloudsmith.pyz\)".*/\1/p' \
+    | xargs wget -qO cloudsmith.pyz
+
+# Make the downloaded file executable
+chmod +x ./cloudsmith.pyz
+
+# Move the executable to /usr/local/bin
+sudo mv ./cloudsmith.pyz /usr/local/bin/cloudsmith
 
 # Verify installation
 if command -v cloudsmith >/dev/null 2>&1; then
